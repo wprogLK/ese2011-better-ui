@@ -1,4 +1,75 @@
-#{extends 'main.html' /}
-#{set title:'Home' /}
-
-#{welcome /}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+		#{extends 'main.html' /}
+		#{set title:'CalendarApp' /}
+		<h1>CalendarApp</h1>
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/index.css'}" />
+    </head>
+    <body>
+		<p>
+		Welcome user ${userName}!
+		
+		#{if !calendarNames.isEmpty()}
+		</br>
+		You have the following calendars:
+			<ul>
+				<li>
+					#{list items:calendarNames, as :'calendarName'}
+					<a href="@{Application.listEventsFromCalendar(calendarName)}">${calendarName}</a>
+					<p>
+					#{/list}
+				</li>
+		</ul>
+		#{/if}
+		#{if calendarNames.isEmpty()}
+		</br>
+			Sorry, but you have no calendars!
+		#{/if}
+		
+		#{if flash.error}
+		    <p style="color:#c00">
+		        ${flash.error}
+		    </p>
+		#{/if}
+		
+		<p>
+		<h2>Manage calendars</h2>
+		#{if flash.error}
+		    <p style="color:#c00">
+		        ${flash.error}
+		    </p>
+		#{/if}
+		<p>
+		<h3>Create new calendar</h3>
+		<form action = "@{Application.createNewCalendar()}" method = "POST">
+			Calendar name:
+			<input type = "text" name = "calendarName"/>
+			<input type = "submit" value="Create new calendar"/>
+		</form>
+		<p>
+		<h2>Manage calendars</h2>
+		<p>
+		<h3>Delete calendar</h3>
+		<form action = "@{Application.deleteCalendar()}" method = "POST">
+			Calendar name:
+			<input type = "text" name = "calendarName"/>
+			<input type = "submit" value="Delete calendar"/>
+		</form>
+		<p>
+		
+		<h2>See a users calendar</h2>
+		
+		The following users are available:
+			<ul>
+				
+					#{list items:allUserNames, as :'user'}
+				<li>	<a href="@{Application.showCalendars(user)}">${user}</a></li>
+					<p>
+					#{/list}
+				
+		</ul>
+		
+		<h2><a href="@{Secure.logout()}">Logout</a></h2>
+    </body>
+</html>

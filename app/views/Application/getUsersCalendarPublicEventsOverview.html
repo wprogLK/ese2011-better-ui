@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+#{set title:'Public events' /}
+<h1>Public events in calendar "${calendarName}" from user "${userName}"</h1>
+#{list items:publicEvents, as :'publicEvent'}
+	<p>
+	<li>
+	${publicEvent}
+	</li>
+	</p>
+#{/list}
+<a href="@{Application.index()}">Back</a>

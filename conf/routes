@@ -3,7 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                       Welcome.index
+GET     /                                       Login.index
+GET     /{userName}/                            Application.showCalendars({userName})
+GET     /{userName}/{calendarName}/             Application.showPublicEvents({userName}, {calendarName}, {startDate})
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -13,3 +16,6 @@ GET     /public/                                staticDir:public
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+
+# Import Secure routes
+*       /                                       module:secure
