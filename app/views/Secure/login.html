@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/login.css'}" />
+		<h1>Calendar app home</h1>
+	</head>
+	<hr>
+	<body>
+		<table id="logintable" border="1">
+			<tr>
+				<div id="login">
+					#{form @authenticate()}
+						#{if flash.error}
+							<p class="error">
+								&{flash.error}
+							</p>
+						#{/if}
+						#{if flash.success}
+							<p class="success">
+								&{flash.success}
+							</p>
+						#{/if}
+						<tr>
+							<td>
+								<p id="username-field">
+								<label for="username">&{'secure.username'}</label>
+								</p>
+							</td>
+							<td>
+								<input type="text" name="username" id="username" value="${flash.username}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p id="password-field">
+								<label for="password">&{'secure.password'}</label>
+								</p>
+							</td>
+							<td>
+								<input type="password" name="password" id="password" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<p id="remember-field">
+									<input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+									<label for="remember">&{'secure.remember'}</label>
+								</p>
+								<p id="signin-field">
+									<input type="submit" id="signin" value="&{'secure.signin'}" />
+								</p>
+								<a href="@{Register.index}">Register</a>
+							</td>
+						</tr>
+					#{/form}
+				</div>
+			</tr>
+		</table>
+	</body>
+</html>

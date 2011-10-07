@@ -1,39 +1,39 @@
-#{extends 'main.html' /}
-#{set title:'CalendarApp' /}
-<h1>CalendarApp</h1>
-<p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showPublicEvents.css'}" />
+		<h1>CalendarApp</h1>
+    </head>
+	<hr>
+    <body>
+		#{if events.isEmpty()}
+			No public events for the given date!
+		#{/if}
+		#{if !events.isEmpty()}
+		These are the public events of ${userName}'s calendar ${calendarName}:
+		<p>
+			<ul>
+				<li>
+					#{list items:events, as :'event'}
+					Name: ${event.getEventName()}
+					</br>
+					Start: ${event.getStartDate()}
+					</br>
+					End: ${event.getEndDate()}
+					
+					<p>
+					
+					#{/list}
+				</li>
+			</ul>
+		</p>
+		#{/if}
+		#{if flash.error}
+		    <p style="color:#c00">
+		        ${flash.error}
+		    </p>
+		#{/if}
+		<a href="@{Application.index()}">Back</a>
+    </body>
+</html>
 
-
-</br>
-#{if !events.isEmpty()}
-These are the public events of ${userName}'s calendar ${calendarName}:
-<p>
-	<ul>
-		<li>
-			#{list items:events, as :'event'}
-			Name: ${event.getEventName()}
-			</br>
-			Start: ${event.getStartDate()}
-			</br>
-			End: ${event.getEndDate()}
-			
-			<p>
-			
-			#{/list}
-		</li>
-</ul>
-#{/if}
-#{if events.isEmpty()}
-	No public events for the given date!
-#{/if}
-
-#{if flash.error}
-    <p style="color:#c00">
-        ${flash.error}
-    </p>
-#{/if}
-
-
-
-
-<h2><a href="@{Secure.logout()}">Logout</a></h2>

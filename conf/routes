@@ -3,8 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                                       Welcome.index
-GET     /                                       Login.index
+GET     /                                       Application.index
 GET     /{userName}/                            Application.showCalendars({userName})
 GET     /{userName}/{calendarName}/             Application.showPublicEvents({userName}, {calendarName}, {startDate})
 

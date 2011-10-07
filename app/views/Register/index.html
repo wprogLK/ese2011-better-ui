@@ -1,21 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
     <head>
-		#{extends 'main.html' /}
-		#{set title:'CalendarApp' /}
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/register.css'}" />
 		<h1>CalendarApp</h1>
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/index.css'}" />
     </head>
+	<hr>
     <body>
-		<form action="@{Register.createNewUser()}" method="GET">		
-					Username:
-					<input type = "text" name="userName" id="userName"/>
-				</p>
-					Password:
-					<input type = "password" name = "password" id="password" />
-				</p>
-				
-				<input type="submit" value="Register" id="register">
-		</form>
+    	<table id="registertable" border="1">
+    		<tr>
+    			<div id="register">
+    				#{if flash.error}
+				    <p style="color:#c00;text-align:center">
+				        ${flash.error}
+				    </p>
+					#{/if}
+    				#{form @Register.createNewUser()}
+	    				<tr>
+							<td>
+								<p id="username-field">
+									<label for="userName">New &{'secure.username'}</label>
+								</p>
+							</td>
+							<td>
+								<input type="text" name="userName" id="userName" value="${flash.username}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p id="password-field">
+									<label for="password">New &{'secure.password'}</label>
+								</p>
+							</td>
+							<td>
+								<input type="password" name="password" id="password" value="" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<p id="register-field">
+									<input type="submit" id="register" value="&{'Register'}" />
+								</p>
+							</td>
+						</tr>
+					#{/form}
+				</div>
+			</tr>
+		</table>
     </body>
 </html>

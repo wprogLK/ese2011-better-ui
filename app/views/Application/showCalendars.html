@@ -1,10 +1,33 @@
-<h1> Calendars of user ${userName} </h1>
-
-<ul>
-		
-			#{list items:allCalendarNames, as :'calendarName'}
-			<li><a href="@{Application.showPublicEvents(userName,calendarName,"01.01.1970")}">${calendarName}</a></li>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showCalendars.css'}" />
+		<h1> Calendars of user ${userName} </h1>
+    </head>
+	<hr>
+    <body>
+		<ul>
+			#{if allCalendarNames.isEmpty()}
+				User ${userName} does not have any calendars!
+			#{/if}
+			#{if !allCalendarNames.isEmpty()}
+			These are the public events of ${userName}'s calendar ${calendarName}:
 			<p>
-			#{/list}
-		
-</ul>
+				<ul>
+					<li>
+						#{list items:allCalendarNames, as :'calendarName'}
+						<li>
+							<a href="@{Application.showPublicEvents(userName,calendarName,"01.01.1970")}">
+								${calendarName}
+							</a>
+						</li>
+						<p>
+						#{/list}
+					</li>
+				</ul>
+			</p>
+			#{/if}
+		</ul>
+		<a href="@{Application.index()}">Back</a>
+    </body>
+</html>

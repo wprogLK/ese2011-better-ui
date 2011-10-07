@@ -29,8 +29,12 @@ public class Register extends Controller
 
     public static void createNewUser(@Required String userName, @Required String password) throws UsernameAlreadyExistException, UnknownUserException
     {
+        if(validation.hasErrors())
+        {
+            flash.error("You have to provide an username and a password!");
+            index();
+        }
     	appCalendar.createUser(userName, password);
-
     	Application.index();
     }
 }

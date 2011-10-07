@@ -1,1 +1,9 @@
- 
+html, body
+{
+  background-color: #FFFFFF;
+}
+
+div#logoutheader
+{
+    float: right;
+}
