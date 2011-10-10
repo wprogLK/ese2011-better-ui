@@ -1,38 +1,55 @@
 <!DOCTYPE html>
-    <head>
+<body>
+    <header>
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/index.css'}" />
-		<h1>CalendarApp</h1>
-    </head>
-	<hr>
-    <body>
-        <h2 id="userheader">
-        	Welcome user ${userName}!
-		    <div id="logoutheader">
-		    	<a href="@{Secure.logout()}">Logout</a>
-		    </div>
-		</h2>
-		#{if !calendarNames.isEmpty()}
-		You have the following calendars:
-			<ul>
-				<li>
-					#{list items:calendarNames, as :'calendarName'}
-					<a href="@{Application.listEventsFromCalendar(calendarName)}">${calendarName}</a>
-					<p>
-					#{/list}
-				</li>
-			</ul>
-		#{/if}
-		#{if calendarNames.isEmpty()}
-		</br>
-			Sorry, but you have no calendars!
-		#{/if}
-		
-		#{if flash.error}
-		    <p style="color:#c00">
-		        ${flash.error}
-		    </p>
-		#{/if}
-		<p>
+		<h1>CalendarApp: Home</h1>
+    </header>
+    
+	<nav>
+		<hr>
+		<ul>
+			<li>
+				<a href="@{Secure.logout()}">Logout</a>
+			</li>
+			<li>
+				<a href="fdsf">Manages calendars</a>
+			</li>
+		</ul>
+		<hr>
+	</nav>
+	
+
+    <aricle>
+    	<section id="welcome">
+	        <h2 id="userheader">
+	        	Welcome user ${userName}!
+			</h2>
+		</section>
+		<section>
+			#{if !calendarNames.isEmpty()}
+			You have the following calendars:
+				<ul>
+					<li>
+						#{list items:calendarNames, as :'calendarName'}
+						<a href="@{Application.listEventsFromCalendar(calendarName)}">${calendarName}</a>
+						<p>
+						#{/list}
+					</li>
+				</ul>
+			#{/if}
+			#{if calendarNames.isEmpty()}
+			</br>
+				Sorry, but you have no calendars!
+			#{/if}
+			
+			#{if flash.error}
+			    <p style="color:#c00">
+			        ${flash.error}
+			    </p>
+			#{/if}
+			<p>
+		</section>
+		<section>
 		<h2>Manage calendars</h2>
 		#{if flash.error}
 		    <p style="color:#c00">
@@ -56,17 +73,24 @@
 			<input type = "submit" value="Delete calendar"/>
 		</form>
 		<p>
+		
+		</section>
+	</aricle>
+	
+	<aside>
 		<h2>See a users calendar</h2>
-		The following users are available:
-		<ul>
-			#{list items:allUserNames, as :'user'}
-			<li>
-				<a href="@{Application.showCalendars(user)}">
-					${user}
-				</a>
-			</li>
-			<p>
-			#{/list}
-		</ul>
-    </body>
+			The following users are available:
+			<ul>
+				#{list items:allUserNames, as :'user'}
+				<li>
+					<a href="@{Application.showCalendars(user)}">
+						${user}
+					</a>
+				</li>
+				<p>
+				#{/list}
+			</ul>
+	</aside>
+	
+</body>
 </html>
