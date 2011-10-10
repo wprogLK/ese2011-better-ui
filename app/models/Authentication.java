@@ -26,13 +26,12 @@ import models.AppExceptions.*;
 public final class Authentication
 {
 	private static ArrayList<Tuple> userDatabase;
-	
+
 	public Authentication()
 	{
 		this.userDatabase = new ArrayList<Tuple>();
 	}
 
-	
 	private class Tuple
 	{
 		private User user;
@@ -58,7 +57,7 @@ public final class Authentication
 		{
 			this.password = newPassword;
 		}
-		
+
 		public String toString()
 		{
 			return this.user.getName();
@@ -130,7 +129,7 @@ public final class Authentication
 	 * @throws UnknownUserException If {@code username} is not in the database.
 	 */
 	public User getUser(String username) throws UnknownUserException
-	{	
+	{
 		Iterator<Tuple> iteratorUsers = this.userDatabase.iterator();
 		while (iteratorUsers.hasNext())
 		{
@@ -169,16 +168,15 @@ public final class Authentication
 		}
 	}
 
-	public ArrayList<String> getAllUserNames() 
+	public ArrayList<String> getAllUserNames()
 	{
-		ArrayList<String> userNames=new ArrayList<String>();
-		
+		ArrayList<String> userNames = new ArrayList<String>();
+
 		for(Tuple t:this.userDatabase)
 		{
-			String userName=t.getUsername();
+			String userName = t.getUsername();
 			userNames.add(userName);
 		}
-		
 		return userNames;
 	}
 }

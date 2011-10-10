@@ -14,11 +14,8 @@
 			<strong>End date:</strong> ${event.endDate.format("dd.MM.yyyy HH:mm")}
 			</li>
 		</ul>
-		
-		
-		
 		#{/list}
-		
+
 		<h1>Add an event</h1>
 		CREATE A PUBLIC EVENT:
 		<form action = "@{Application.createANewPublicEvent()}" method = "POST">
@@ -30,7 +27,7 @@
 			<input type = "text" name = "endDate"/>
 			<input type = "submit" value="Create public event"/>
 		</form>
-		
+
 		CREATE A PRIVATE EVENT:
 		<form action = "@{Application.createANewPrivateEvent()}" method = "POST">
 			EventName:

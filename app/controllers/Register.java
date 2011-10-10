@@ -18,10 +18,10 @@ import models.AppExceptions.*;
 
 public class Register extends Controller
 {
-	
+
 	public static IUser appUser;
-	public static AppCalendar appCalendar=Bootstrap.getAppCalendar();
-	
+	public static AppCalendar appCalendar = Bootstrap.getAppCalendar();
+
     public static void index() throws UnknownUserException
     {
     	render();

@@ -107,7 +107,7 @@ public class User extends Model implements IUser
 	public Iterator<IEvent> getMyCalendarPublicEventsStartingFrom(String calendarName, Date startDate) throws UnknownCalendarException
 	{
 		Calendar calendar = this.getCalendar(calendarName);
-		
+
 		return calendar.getAllPublicEventsStartingFrom(startDate);
 	}
 

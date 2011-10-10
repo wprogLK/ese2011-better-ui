@@ -30,15 +30,14 @@ public class AppCalendar implements IAppCalendar
 
 	public AppCalendar()
 	{
-			auth=new Authentication();
+			auth = new Authentication();
 	}
 
-	
 	@Override
 	public void createUser(String username, String password) throws UsernameAlreadyExistException, UnknownUserException
 	{
-		this.auth.createNewUser(username , password);
-		User user=this.auth.getUser(username);
+		this.auth.createNewUser(username, password);
+		User user = this.auth.getUser(username);
 		user.save();
 	}
 
@@ -72,7 +71,7 @@ public class AppCalendar implements IAppCalendar
 	public Iterator<IEvent> getUsersCalendarPublicEvents(String username, String calendarName, Date startDate) throws UnknownUserException, UnknownCalendarException, AccessDeniedException
 	{
 		User user = this.auth.getUser(username);
-		
+
 		return user.getMyCalendarPublicEventsStartingFrom(calendarName, startDate);
 	}
 
@@ -83,14 +82,13 @@ public class AppCalendar implements IAppCalendar
 	}
 
 	@Override
-	public ArrayList<String> getAllUserNames() 
+	public ArrayList<String> getAllUserNames()
 	{
 		return this.auth.getAllUserNames();
 	}
-	
+
 	public User getCurrentUser(String userName) throws UnknownUserException
 	{
 		return this.auth.getUser(userName);
 	}
-
 }

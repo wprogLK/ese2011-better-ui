@@ -180,7 +180,6 @@ public class Calendar implements ICalendar
 				output.add(event);
 			}
 		}
-		
 		return output;
 	}
 

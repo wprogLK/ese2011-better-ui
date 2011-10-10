@@ -1,5 +1,5 @@
 /**
- * 
+ * Calendar framework
  */
 package models;
 
@@ -8,10 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author lukas
+ * @author Lukas Keller
+ * @author Renato Corti
  *
  */
-public abstract class Helper 
+
+public abstract class Helper
 {
 	public static Date parseStringToDate(String str) throws ParseException
 	{
