@@ -1,96 +1,84 @@
 <!DOCTYPE html>
-<body>
-    <header>
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/index.css'}" />
-		<h1>CalendarApp: Home</h1>
-    </header>
-    
-	<nav>
+<html>
+	<body>
+	    <header>
+	        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/index.css'}" />
+			<h1>CalendarApp: Home of user ${userName}</h1>
+	    </header>
+		<nav>
 		<hr>
-		<ul>
-			<li>
-				<a href="@{Secure.logout()}">Logout</a>
-			</li>
-			<li>
-				<a href="fdsf">Manages calendars</a>
-			</li>
-		</ul>
-		<hr>
-	</nav>
+			<div id="logout">
+			<a href="@{Secure.logout()}">Logout</a>
+			</div>
 	
-
-    <aricle>
-    	<section id="welcome">
-	        <h2 id="userheader">
-	        	Welcome user ${userName}!
-			</h2>
-		</section>
-		<section>
+			<div id="calendarList">
 			#{if !calendarNames.isEmpty()}
-			You have the following calendars:
 				<ul>
-					<li>
-						#{list items:calendarNames, as :'calendarName'}
+					#{list items:calendarNames, as :'calendarName'}
 						<a href="@{Application.listEventsFromCalendar(calendarName)}">${calendarName}</a>
-						<p>
-						#{/list}
-					</li>
+					#{/list}
 				</ul>
 			#{/if}
-			#{if calendarNames.isEmpty()}
-			</br>
-				Sorry, but you have no calendars!
-			#{/if}
-			
-			#{if flash.error}
-			    <p style="color:#c00">
-			        ${flash.error}
-			    </p>
-			#{/if}
-			<p>
-		</section>
-		<section>
-		<h2>Manage calendars</h2>
-		#{if flash.error}
-		    <p style="color:#c00">
-		        ${flash.error}
-		    </p>
-		#{/if}
-		<p>
-		<h3>Create new calendar</h3>
-		<form action = "@{Application.createNewCalendar()}" method = "POST">
-			Calendar name:
-			<input type = "text" name = "calendarName"/>
-			<input type = "submit" value="Create new calendar"/>
-		</form>
-		<p>
-		<h2>Manage calendars</h2>
-		<p>
-		<h3>Delete calendar</h3>
-		<form action = "@{Application.deleteCalendar()}" method = "POST">
-			Calendar name:
-			<input type = "text" name = "calendarName"/>
-			<input type = "submit" value="Delete calendar"/>
-		</form>
-		<p>
-		
-		</section>
-	</aricle>
+			#{else}
+				</br>
+				No calendars available!
+			#{/else}
+			</div>
+		<hr>
+		</nav>
 	
-	<aside>
-		<h2>See a users calendar</h2>
-			The following users are available:
-			<ul>
-				#{list items:allUserNames, as :'user'}
-				<li>
-					<a href="@{Application.showCalendars(user)}">
-						${user}
-					</a>
-				</li>
+	    <article>
+	    	<section>
+	    		<aside id="calendar">
+					<div class="calendar.html">
+					#{if !calendarNames.isEmpty()}
+						<object width="700px" height="500px" type="text/html" data=@{Application.calendar(calendarNames.get(0), 10, 10, 2011)}>					
+							<a href=@{Application.calendar(calendarNames.get(0))}>Calendar</a>
+						</object>
+					#{/if}
+					#{else}
+						</br>
+						No calendars available!
+					#{/else}
+					</div>
+	    		</aside>
+	
+	    		<aside id="foreignusers">
+					<h2>See a users calendar</h2>
+					The following users are available:
+					<ul>
+						#{list items:allUserNames, as :'user'}
+							<li>
+								<a href="@{Application.showCalendars(user)}">
+									${user}
+								</a>
+							</li>
+							<p>
+						#{/list}
+					</ul>
+					<hr>
+				</aside>
 				<p>
-				#{/list}
-			</ul>
-	</aside>
-	
-</body>
+	    	</section>
+			<section id="managing">
+				</br>
+				<h2>Manage calendars</h2>
+				<p>
+				<h3>Create new calendar</h3>
+				<form action = "@{Application.createNewCalendar()}" method = "POST">
+					Calendar name:
+					<input type = "text" name = "calendarName"/>
+					<input type = "submit" value="Create new calendar"/>
+				</form>
+				<p>
+				<h3>Delete calendar</h3>
+				<form action = "@{Application.deleteCalendar()}" method = "POST">
+					Calendar name:
+					<input type = "text" name = "calendarName"/>
+					<input type = "submit" value="Delete calendar"/>
+				</form>
+				<p>
+			</section>
+		</aricle>
+	</body>
 </html>

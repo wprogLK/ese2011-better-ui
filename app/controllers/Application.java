@@ -4,9 +4,7 @@ import play.*;
 import play.mvc.*;
 import play.data.validation.*;
 
-import interfaces.IAppCalendar;
-import interfaces.IEvent;
-import interfaces.IUser;
+import interfaces.*;
 
 import java.text.ParseException;
 import java.util.*;
@@ -14,22 +12,24 @@ import java.util.*;
 import jobs.Bootstrap;
 
 import models.*;
+import models.AppExceptions.UnknownCalendarException;
 import models.Calendar;
 import models.AppExceptions.*;
 
 @With(Secure.class)
 public class Application extends Controller
 {
-	public static AppCalendar appCalendar=Bootstrap.getAppCalendar();
+	public static AppCalendar appCalendar = Bootstrap.getAppCalendar();
 	public static IUser appUser;
 	public static Calendar currentCalendar;
+	public static ArrayList<ArrayList<Integer>> listDays;
 
     public static void index() throws UnknownUserException
     {
     	List<String> allUserNames = showAllUsers();
     	String userName = Security.connected();
     	getCurrentUser();
-    	if(userName!=null)
+    	if(userName != null)
     	{
     		List<String> calendarNames = appCalendar.getAllCalendarsNamesFromUser(userName);
         	render(calendarNames, userName, allUserNames);
@@ -38,7 +38,6 @@ public class Application extends Controller
     	{
     		render(null, null);
     	}
-
     }
 
     public static void createANewEvent(String eventName, String startDate, String endDate, boolean privateEvent) throws ParseException, AccessDeniedException, InvalidDateException, UnknownCalendarException, UnknownUserException
@@ -159,9 +158,37 @@ public class Application extends Controller
     	render(allCalendarNames, userName);
     }
 
+    public static void calendar(String strCalendar, int day, int month, int year) throws UnknownCalendarException
+    {
+    	ICalendar calendar = appUser.getCalendar(strCalendar);
+    	createDayList(calendar, day, month, year);
+    	render(calendar);
+    }
+
     private static void getCurrentUser() throws UnknownUserException
     {
     	String userName = Security.connected();
 		appUser = appCalendar.getCurrentUser(userName);
     }
+
+	private static void createDayList(ICalendar cal, int day, int month, int year)
+	{
+		listDays = new ArrayList<ArrayList<Integer>>();
+		int j = 1;
+		for (int i = 0; i < 4; i++)
+		{
+			ArrayList dayNumberList = new ArrayList<Day>();
+			for (int k = 0; k < 8; k++)
+			{
+				Day d = new Day(cal, j, month, year);
+				dayNumberList.add(d);
+				j++;
+				if(j == 33)
+				{
+					dayNumberList.remove(7);
+				}
+			}
+			listDays.add(dayNumberList);
+		}
+	}
 }

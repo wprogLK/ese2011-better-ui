@@ -27,7 +27,7 @@ public class Register extends Controller
     	render();
     }
 
-    public static void createNewUser(@Required String userName, @Required String password) throws UsernameAlreadyExistException, UnknownUserException
+    public static void createNewUser(@Required String userName, @Required String password) throws Throwable
     {
         if(validation.hasErrors())
         {
@@ -35,6 +35,7 @@ public class Register extends Controller
             index();
         }
     	appCalendar.createUser(userName, password);
+    	Secure.authenticate(userName, password, false);
     	Application.index();
     }
 }

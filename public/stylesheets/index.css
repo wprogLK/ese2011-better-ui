@@ -3,7 +3,29 @@ html, body
   background-color: #FFFFFF;
 }
 
-div#logoutheader
+div#logout
 {
-    float: right;
+  float: right;
 }
+
+div#calendarList
+{
+  display: inline;
+}
+
+aside#calendar
+{
+  float: left;
+  text-align: center;
+}
+
+aside#eventInfo
+{
+  float: right;
+}
+
+aside#foreignusers
+{
+  float: right;
+}
+

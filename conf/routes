@@ -6,6 +6,7 @@
 GET     /                                       Application.index
 GET     /{userName}/                            Application.showCalendars({userName})
 GET     /{userName}/{calendarName}/             Application.showPublicEvents({userName}, {calendarName}, {startDate})
+GET		/Application/calendar.html              Application.calendar
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
