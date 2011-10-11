@@ -7,7 +7,11 @@
 		</header>
 		<article>
 			<aside id="eventInfo">
-				EventInfo
+				
+				Day correct? ${objDay.getDay()} Yes
+				<object width="100px" height="500px" type="text/html" data=@{Application.showNextEvent(objDay)}>					
+							<a href=@{Application.showNextEvent(objDay)}>Current Event</a>
+				</object>
 			</aside>
 
 			<table id="calendarTable" border="1">
@@ -31,24 +35,25 @@
 						  	#{if day.hasEvents() && day.isToday()}
 						  		#{if day.isSelected()}
 							  		<div id="today_with_Events_selected">
-							  			${day.toString()}
+							  			<a href="@{Application.calendar(calendar.getName(),day.getDay() ,realDay, month, year)}">${day.toString()}</a>
 							  		</div>
 							  	#{/if}
 							  	#{else}
 							  		<div id="today_with_Events_unselected">
-							  			${day.toString()}
+							  		day.day=${day.getDay()}
+							  			<a href="@{Application.calendar(calendar.getName(),day.getDay() ,realDay, month, year)}">${day.toString()}</a>
 							  		</div>
 							  	#{/else}
 						  	#{/if}
 						  	#{if day.hasEvents() && !day.isToday()}
 						  		#{if day.isSelected()}
-							  		<div id="dayWithEvents_selected">
-						  			${day.toString()}
+							  	<div id="dayWithEvents_selected">
+						  				<a href="@{Application.calendar(calendar.getName(),day.getDay() ,realDay, month, year)}">${day.toString()}</a>
 						  		</div>
 							  	#{/if}
 							  	#{else}
 							  		<div id="dayWithEvents_unselected">
-						  			${day.toString()}
+						  				<a href="@{Application.calendar(calendar.getName(),day.getDay() ,realDay, month, year)}">${day.toString()}</a>
 						  		</div>
 							  	#{/else}
 						  		

@@ -12,12 +12,14 @@ div#today_with_Events_selected
 {
    font-weight:bold;
    background-color: yellow;
-   color:white;
+   color:black;
 }
 
 div#dayWithEvents_selected
 {	
-   font-weight:bold
+   font-weight:bold;
+	background-color: yellow;
+	color:black;
 }
 
 div#dayToday_selected

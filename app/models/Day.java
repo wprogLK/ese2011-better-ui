@@ -13,8 +13,9 @@ public class Day
 	private boolean hasEvent, exists = true, isToday = false, selected=false;
 	private int day;
 	
-	
 	private ArrayList<IEvent> eventList = new ArrayList<IEvent>();
+	private Iterator<IEvent> eventIterator;
+
 	
 	public Day(ICalendar icalendar, int day, int month, int year)
 	{
@@ -40,6 +41,8 @@ public class Day
 		{
 			this.exists = false;
 		}
+		
+		this.eventIterator=this.eventList.iterator();
 	}
 
 
@@ -92,4 +95,44 @@ public class Day
 	{
 		return this.selected;
 	}
+	
+	public int getDay()
+	{
+		return this.day;
+	}
+	
+	
+	public IEvent nextIEvent() throws Exception
+	{
+		System.out.println("Try next Event of Day " + this.day);
+		if(this.eventIterator==null)
+		{
+			//throw new Exception();
+			this.eventIterator=this.eventList.iterator();
+			System.out.println("SET ITERATOR");
+		}
+		
+		if(this.eventIterator.hasNext())
+		{
+			return this.eventIterator.next();
+		}
+		else
+		{
+			this.eventIterator=this.eventList.iterator();
+			if(this.eventIterator.hasNext())
+			{
+				return this.eventIterator.next();
+			}
+			else
+			{
+				return null;
+			}
+		}
+	}
+	
+	public void initIterator()
+	{
+		this.eventIterator=this.eventList.iterator();
+	}
+
 }
