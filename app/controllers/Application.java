@@ -254,11 +254,13 @@ public class Application extends Controller
 	
 	public static void showNextEvent(Day day)
 	{
+		//TODO OLD METHOD
 			System.out.println("DAY " + day.getDay());
 			IEvent event;
 			try 
 			{
-				event = day.nextIEvent();
+				day.nextIEvent();
+				event=day.getCurrentEvent();
 				if(event!=null)
 				{
 					render(event);
@@ -269,5 +271,10 @@ public class Application extends Controller
 				System.out.println("SHOW NOT POSSIBLE");
 			}
 			
+	}
+	
+	public static void showEvent(IEvent event)
+	{
+		render(event);
 	}
 }

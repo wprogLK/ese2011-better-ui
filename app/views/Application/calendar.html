@@ -9,9 +9,16 @@
 			<aside id="eventInfo">
 				
 				Day correct? ${objDay.getDay()} Yes
-				<object width="100px" height="500px" type="text/html" data=@{Application.showNextEvent(objDay)}>					
-							<a href=@{Application.showNextEvent(objDay)}>Current Event</a>
-				</object>
+				#{if objDay.getCurrentEvent()!=null}
+					Day event${objDay.getCurrentEvent().getEventName()}
+					<object width="100px" height="500px" type="text/html" data=@{Application.showEvent(objDay.getCurrentEvent())}>					
+							<a href=@{Application.showEvent(objDay.getCurrentEvent())}>Current Event</a>
+					</object>
+				#{/if}
+				#{else}
+					current event is null!
+				#{/else}
+				
 			</aside>
 
 			<table id="calendarTable" border="1">

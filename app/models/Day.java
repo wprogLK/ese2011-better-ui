@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 public class Day
 {
+	private IEvent currentEvent;
 	private boolean hasEvent, exists = true, isToday = false, selected=false;
 	private int day;
 	
@@ -102,7 +103,7 @@ public class Day
 	}
 	
 	
-	public IEvent nextIEvent() throws Exception
+	public void nextIEvent() throws Exception
 	{
 		System.out.println("Try next Event of Day " + this.day);
 		if(this.eventIterator==null)
@@ -114,18 +115,19 @@ public class Day
 		
 		if(this.eventIterator.hasNext())
 		{
-			return this.eventIterator.next();
+			this.currentEvent= this.eventIterator.next();
+			System.out.println("NEXT iEVent: currentEvent= " + this.currentEvent);
 		}
 		else
 		{
 			this.eventIterator=this.eventList.iterator();
 			if(this.eventIterator.hasNext())
 			{
-				return this.eventIterator.next();
+				this.currentEvent = this.eventIterator.next();
 			}
 			else
 			{
-				return null;
+				this.currentEvent = null;
 			}
 		}
 	}
@@ -133,6 +135,16 @@ public class Day
 	public void initIterator()
 	{
 		this.eventIterator=this.eventList.iterator();
+	}
+	
+	public IEvent getCurrentEvent() throws Exception
+	{
+		if(this.currentEvent==null)
+		{
+			this.nextIEvent();
+		}
+		
+		return currentEvent;
 	}
 
 }
