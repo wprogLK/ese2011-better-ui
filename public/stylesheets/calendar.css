@@ -7,3 +7,53 @@ table#calendarTable
 {
   float: left;
 }
+
+div#today_with_Events_selected
+{
+   font-weight:bold;
+   background-color: yellow;
+   color:white;
+}
+
+div#dayWithEvents_selected
+{	
+   font-weight:bold
+}
+
+div#dayToday_selected
+{
+   background-color: yellow;
+   color:black;
+}
+
+div#normalDay_selected
+{
+	color: black;
+	background-color:yellow;
+}
+
+
+
+
+div#today_with_Events_unselected
+{
+   font-weight:bold;
+   background-color: blue;
+   color:white;
+}
+
+div#dayWithEvents_unselected
+{	
+   font-weight:bold
+}
+
+div#dayToday_unselected
+{
+   background-color: blue;
+   color:white;
+}
+
+div#normalDay_unselected
+{
+	color: black;
+}

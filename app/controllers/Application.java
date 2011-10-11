@@ -22,8 +22,9 @@ public class Application extends Controller
 	public static AppCalendar appCalendar = Bootstrap.getAppCalendar();
 	public static IUser appUser;
 	public static Calendar currentCalendar;
-	public static ArrayList<ArrayList<Integer>> listDays;
-
+//	public static ArrayList<ArrayList<Integer>> listDays;
+	public static List<List<Day>> listDays;
+	
     public static void index() throws UnknownUserException
     {
     	List<String> allUserNames = showAllUsers();
@@ -158,11 +159,35 @@ public class Application extends Controller
     	render(allCalendarNames, userName);
     }
 
-    public static void calendar(String strCalendar, int day, int month, int year) throws UnknownCalendarException
+    public static void calendar(String strCalendar, int selectedDay,int day, int month, int year) throws UnknownCalendarException
     {
+    	
+    	if(day==-1 && month==-1 && year==-1)
+    	{
+    		Date today=new Date();
+    		day=today.getDate();
+    		month=today.getMonth()+1;
+    		year=today.getYear()+1900;
+    		selectedDay=day;
+    		
+    		System.out.println("DATE TODAY: " + today);
+    		System.out.println("DAY: " + day + " MONTH: " + month + " YEAR: " + year);	//TODO DELETE IT
+    	}
+ 
     	ICalendar calendar = appUser.getCalendar(strCalendar);
-    	createDayList(calendar, day, month, year);
-    	render(calendar);
+    	createDayList(calendar, day, month, year, selectedDay);
+    	
+    	List<List<Day>> realList=(List<List<Day>>) listDays;
+    
+    	ArrayList<Integer> numbersArrayList=new ArrayList<Integer>();
+    	numbersArrayList.add(0);
+    	numbersArrayList.add(1);
+    	numbersArrayList.add(2);
+    	numbersArrayList.add(3);
+    	
+    	List<Integer> numbers=(List<Integer>)  numbersArrayList;
+   
+    	render(calendar, realList, numbers, year, month );
     }
 
     private static void getCurrentUser() throws UnknownUserException
@@ -171,24 +196,40 @@ public class Application extends Controller
 		appUser = appCalendar.getCurrentUser(userName);
     }
 
-	private static void createDayList(ICalendar cal, int day, int month, int year)
+	private static void createDayList(ICalendar cal, int day, int month, int year, int selectedDay)
 	{
-		listDays = new ArrayList<ArrayList<Integer>>();
+		ArrayList<List<Day>> tmpListDays=new ArrayList<List<Day>>();
+	//	listDays = new ArrayList<ArrayList<Integer>>();
 		int j = 1;
 		for (int i = 0; i < 4; i++)
 		{
-			ArrayList dayNumberList = new ArrayList<Day>();
+			List<Day> dayNumberListTmp=(List<Day>) new ArrayList<Day>();
+			//ArrayList dayNumberList = new ArrayList<Day>();
 			for (int k = 0; k < 8; k++)
 			{
 				Day d = new Day(cal, j, month, year);
-				dayNumberList.add(d);
+				
+				if(j==day)
+				{
+					d.setIsToday();
+				}
+				if(j==selectedDay)
+				{
+					d.setSelected();
+				}
+				
+				dayNumberListTmp.add(d);
+				//dayNumberList.add(d);
 				j++;
 				if(j == 33)
 				{
-					dayNumberList.remove(7);
+					dayNumberListTmp.remove(7);
 				}
 			}
-			listDays.add(dayNumberList);
+			tmpListDays.add(dayNumberListTmp);
 		}
+		
+		listDays=(List<List<Day>>) tmpListDays;
+		
 	}
 }
