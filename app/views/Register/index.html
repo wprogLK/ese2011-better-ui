@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/register.css'}" />
+	<head>
+		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/register.css'}" />
 		<h1>CalendarApp</h1>
-    </head>
+	</head>
 	<hr>
-    <body>
-    	<table id="registertable" border="1">
-    		<tr>
-    			<div id="register">
-    				#{if flash.error}
-				    <p style="color:#c00;text-align:center">
-				        ${flash.error}
-				    </p>
+	<body>
+		<table id="registertable" border="1">
+			<tr>
+				<div id="register">
+					#{if flash.error}
+						<p style="color:#c00;text-align:center">
+							${flash.error}
+						</p>
 					#{/if}
-    				#{form @Register.createNewUser()}
-	    				<tr>
+					#{form @Register.createNewUser()}
+						<tr>
 							<td>
 								<p id="username-field">
 									<label for="userName">New &{'secure.username'}</label>
@@ -48,5 +48,5 @@
 				</div>
 			</tr>
 		</table>
-    </body>
+	</body>
 </html>

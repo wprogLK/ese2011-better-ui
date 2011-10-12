@@ -1,7 +1,5 @@
 aside#eventInfo
-{
-  float: right;
-}
+{}
 
 table#calendarTable
 {
@@ -10,52 +8,49 @@ table#calendarTable
 
 div#today_with_Events_selected
 {
-   font-weight:bold;
+   font-weight: bold;
    background-color: yellow;
-   color:black;
+   color: black;
+}
+
+div#today_with_Events_unselected
+{
+   font-weight: bold;
+   background-color: blue;
+   color: white;
 }
 
 div#dayWithEvents_selected
-{	
-   font-weight:bold;
-	background-color: yellow;
-	color:black;
+{
+  font-weight: bold;
+  background-color: yellow;
+  color: black;
+}
+
+div#dayWithEvents_unselected
+{
+   font-weight: bold;
 }
 
 div#dayToday_selected
 {
    background-color: yellow;
-   color:black;
-}
-
-div#normalDay_selected
-{
-	color: black;
-	background-color:yellow;
-}
-
-
-
-
-div#today_with_Events_unselected
-{
-   font-weight:bold;
-   background-color: blue;
-   color:white;
-}
-
-div#dayWithEvents_unselected
-{	
-   font-weight:bold
+   color: black;
 }
 
 div#dayToday_unselected
 {
    background-color: blue;
-   color:white;
+   color: white;
+}
+
+div#normalDay_selected
+{
+  background-color: yellow;
+  color: black;
 }
 
 div#normalDay_unselected
 {
-	color: black;
+  color: black;
 }

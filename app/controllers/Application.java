@@ -7,12 +7,12 @@ import play.data.validation.*;
 import interfaces.*;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import jobs.Bootstrap;
 
 import models.*;
-import models.AppExceptions.UnknownCalendarException;
 import models.Calendar;
 import models.AppExceptions.*;
 
@@ -22,10 +22,9 @@ public class Application extends Controller
 	public static AppCalendar appCalendar = Bootstrap.getAppCalendar();
 	public static IUser appUser;
 	public static Calendar currentCalendar;
-//	public static ArrayList<ArrayList<Integer>> listDays;
 	public static List<List<Day>> listDays;
 	public static Day objSelectedDay;
-	
+
     public static void index() throws UnknownUserException
     {
     	List<String> allUserNames = showAllUsers();
@@ -77,7 +76,7 @@ public class Application extends Controller
 
     public static void listEventsFromCalendar(@Required String calendarName) throws UnknownCalendarException, AccessDeniedException, ParseException
     {
-    	currentCalendar=appUser.getCalendar(calendarName);
+    	currentCalendar = appUser.getCalendar(calendarName);
 
     	ArrayList<IEvent> eventsList = appUser.getMyCalendarAllEventsAtDate(calendarName, Helper.parseStringToDate("01.01.1970"));
     	render(calendarName, eventsList);
@@ -96,10 +95,10 @@ public class Application extends Controller
             index();
         }
 
-        Date realStartDate= Helper.parseStringToDate(startDate);
+        Date realStartDate = Helper.parseStringToDate(startDate);
         Iterator<IEvent> publicEventsIterator = appCalendar.getUsersCalendarPublicEvents(userName, calendarName, realStartDate);
 
-        ArrayList<IEvent> events=new ArrayList<IEvent>();
+        ArrayList<IEvent> events = new ArrayList<IEvent>();
 
     	while(publicEventsIterator.hasNext())
     	{
@@ -111,7 +110,7 @@ public class Application extends Controller
     	render(events, userName, calendarName);
     }
 
-    public static void createNewCalendar(@Required String calendarName) throws CalendarIsNotUniqueException, UnknownUserException
+    public static void createNewCalendar(@Required String calendarName) throws UnknownUserException, CalendarIsNotUniqueException
     {
 
         if(validation.hasErrors())
@@ -120,7 +119,7 @@ public class Application extends Controller
             index();
         }
 
-    	appUser.createNewCalendar(calendarName);
+        appUser.createNewCalendar(calendarName);
         index();
     }
 
@@ -160,49 +159,37 @@ public class Application extends Controller
     	render(allCalendarNames, userName);
     }
 
-    public static void calendar(String strCalendar, int selectedDay,int todayDay, int month, int year) throws UnknownCalendarException
+    public static void calendar(String strCalendar, int selectedDay, int todayDay, int month, int year) throws UnknownCalendarException, ParseException
     {
-    	System.out.println("SELCECTED DAY " + selectedDay + " DAY: " + todayDay + " MONTH: " + month + " YEAR: " + year);	//TODO DELETE IT
-    	
-    	Date dateToday=new Date();
+    	Date dateToday = new Date();
     	dateToday.setDate(todayDay);
-    	if(todayDay==-1 && month==-1 && year==-1)
+    	if(todayDay == -1 && month == -1 && year == -1)
     	{
-    		
-    		todayDay=dateToday.getDate();
-    		month=dateToday.getMonth()+1;
-    		year=dateToday.getYear()+1900;
-    		selectedDay=todayDay;
-    		
-    		System.out.println("DATE TODAY: " + dateToday);
-    		
+
+    		todayDay = dateToday.getDate();
+    		month = dateToday.getMonth() + 1;
+    		year = dateToday.getYear() + 1900;
+    		selectedDay = todayDay;
     	}
-    	
+
     	ICalendar calendar = appUser.getCalendar(strCalendar);
-    	Day objDay=null;
-    	try 
-    	{
-    		objDay=createDayList(calendar, month, year, selectedDay, todayDay);
-	    	System.out.println("OBJ TODAY :" + objDay.toString());			
-	    	objDay.initIterator();
-		} catch (ParseException e) {
-			System.out.println("ERROR!");
-			e.printStackTrace();
-			System.exit(1);			//TODO
-		}
-    	
-    	List<List<Day>> realList=(List<List<Day>>) listDays;
-    
-    	ArrayList<Integer> numbersArrayList=new ArrayList<Integer>();
+    	Day objDay = createDayList(calendar, month, year, selectedDay, todayDay);
+	    objDay.initIterator();
+
+    	List<List<Day>> realList = listDays;
+    	ArrayList<Integer> numbersArrayList = new ArrayList<Integer>();
     	numbersArrayList.add(0);
     	numbersArrayList.add(1);
     	numbersArrayList.add(2);
     	numbersArrayList.add(3);
-    	
-    	List<Integer> numbers=(List<Integer>)  numbersArrayList;
-    	int realDay=todayDay;
-    	System.out.println("CALENDAR: OBJ DAY: " + objDay.getDay());
-    	render(calendar, realList, numbers, realDay, month, year , objDay);
+    	numbersArrayList.add(4);
+
+    	List<Integer> numbers = (List<Integer>) numbersArrayList;
+    	int realDay = todayDay;
+
+    	SimpleDateFormat sdf = new SimpleDateFormat("MMMM");
+    	String strMonth = sdf.format(Helper.parseStringToDate(selectedDay+"."+month+"."+year));
+    	render(calendar, realList, numbers, realDay, month, strMonth, year, objDay);
     }
 
     private static void getCurrentUser() throws UnknownUserException
@@ -213,68 +200,75 @@ public class Application extends Controller
 
 	private static Day createDayList(ICalendar cal, int month, int year, int selectedDay, int todayDay) throws ParseException
 	{
-		Day returnDay=null;
-		ArrayList<List<Day>> tmpListDays=new ArrayList<List<Day>>();
-	//	listDays = new ArrayList<ArrayList<Integer>>();
+		Day returnDay = null;
+		ArrayList<List<Day>> tmpListDays = new ArrayList<List<Day>>();
 		int j = 1;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 5; i++)
 		{
-			List<Day> dayNumberListTmp=(List<Day>) new ArrayList<Day>();
-			//ArrayList dayNumberList = new ArrayList<Day>();
-			for (int k = 0; k < 8; k++)
+			List<Day> dayNumberListTmp = (List<Day>) new ArrayList<Day>();
+			for (int k = 0; k < 7; k++)
 			{
-				Day d = new Day(cal, j, month, year);
-				
-				if(j==todayDay)
+				if(j == 32)
 				{
-					System.out.println("TODAY IS " + todayDay + " j= " + j);
+					break;
+				}
+				Day d = new Day(cal, j, month, year);
+
+				if(j == todayDay)
+				{
 					d.setIsToday();
 				}
-				if(j==selectedDay)
+				if(j == selectedDay)
 				{
-					System.out.println("-----_______DAY SELECTED " + d.getDay());
-					returnDay=d; 
+					returnDay = d;
 					d.setSelected();
 				}
-				
+
 				dayNumberListTmp.add(d);
 				//dayNumberList.add(d);
 				j++;
-				if(j == 33)
-				{
-					dayNumberListTmp.remove(7);
-				}
 			}
 			tmpListDays.add(dayNumberListTmp);
 		}
-		
-		listDays=(List<List<Day>>) tmpListDays;
+
+		listDays = tmpListDays;
 		return returnDay;
 	}
-	
+
+/*
 	public static void showNextEvent(Day day)
 	{
-		//TODO OLD METHOD
-			System.out.println("DAY " + day.getDay());
-			IEvent event;
-			try 
-			{
-				day.nextIEvent();
-				event=day.getCurrentEvent();
-				if(event!=null)
-				{
-					render(event);
-				}
-			} 
-			catch (Exception e) 
-			{
-				System.out.println("SHOW NOT POSSIBLE");
-			}
-			
+		// OLD METHOD
+		System.out.println("DAY " + day.getDay());
+		IEvent event;
+		day.nextIEvent();
+		event = day.getCurrentEvent();
+		if(event != null)
+		{
+			render(event);
+		}
 	}
-	
-	public static void showEvent(IEvent event)
+*/
+
+	public static void oneMonthBack(String cal, int selectedDay, int todayDay, int month, int year) throws UnknownCalendarException, ParseException
 	{
-		render(event);
+		month -= 1;
+		if(month <= 0)
+		{
+			month += 12;
+			year -= 1;
+		}
+		calendar(cal, selectedDay, todayDay, month, year);
+	}
+
+	public static void oneMonthForward(String cal, int selectedDay, int todayDay, int month, int year) throws UnknownCalendarException, ParseException
+	{
+		month += 1;
+		if(month >= 13)
+		{
+			month -= 12;
+			year += 1;
+		}
+		calendar(cal, selectedDay, todayDay, month, year);
 	}
 }

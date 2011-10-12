@@ -6,48 +6,54 @@
 			<h1>CalendarApp: Home of user ${userName}</h1>
 	    </header>
 		<nav>
-		<hr>
+			<hr>
 			<div id="logout">
-			<a href="@{Secure.logout()}">Logout</a>
+				<a href="@{Secure.logout()}">
+					Logout
+				</a>
 			</div>
-	
+
 			<div id="calendarList">
-			#{if !calendarNames.isEmpty()}
-				<ul>
-					#{list items:calendarNames, as :'calendarName'}
-						<a href="@{Application.listEventsFromCalendar(calendarName)}">${calendarName}</a>
-					#{/list}
-				</ul>
-			#{/if}
-			#{else}
-				</br>
-				No calendars available!
-			#{/else}
+				#{if !calendarNames.isEmpty()}
+					<ul>
+						#{list items:calendarNames, as:'calendarName'}
+							<a href="@{Application.listEventsFromCalendar(calendarName)}">
+								${calendarName}
+							</a>
+						#{/list}
+					</ul>
+				#{/if}
+				#{else}
+					</br>
+					No calendars available!
+				#{/else}
 			</div>
-		<hr>
+			<hr>
 		</nav>
-	
+
 	    <article>
 	    	<section>
 	    		<aside id="calendar">
 					<div class="calendar.html">
-					#{if !calendarNames.isEmpty()}
-						<object width="700px" height="500px" type="text/html" data=@{Application.calendar(calendarNames.get(0), 1, 1, 10, 2011)}>					
-							<a href=@{Application.calendar(calendarNames.get(0), 21, 10, 2011)}>Calendar</a>
-						</object>
-					#{/if}
-					#{else}
-						</br>
-						No calendars available!
-					#{/else}
+						#{if !calendarNames.isEmpty()}
+							<object id="calendarContent" type="text/html" data=@{Application.calendar(calendarNames.get(0), 1, 1, 10, 2011)}>
+								<a href=@{Application.calendar(calendarNames.get(0), 21, 10, 2011)}>
+									Calendar ${calendarName}
+								</a>
+							</object>
+						#{/if}
+						#{else}
+							</br>
+							No calendars available!
+						#{/else}
 					</div>
 	    		</aside>
-	
+
 	    		<aside id="foreignusers">
 					<h2>See a users calendar</h2>
 					The following users are available:
 					<ul>
-						#{list items:allUserNames, as :'user'}
+						#{list items:allUserNames, as:'user'}
 							<li>
 								<a href="@{Application.showCalendars(user)}">
 									${user}
@@ -65,17 +71,17 @@
 				<h2>Manage calendars</h2>
 				<p>
 				<h3>Create new calendar</h3>
-				<form action = "@{Application.createNewCalendar()}" method = "POST">
+				<form action="@{Application.createNewCalendar()}" method="POST">
 					Calendar name:
-					<input type = "text" name = "calendarName"/>
-					<input type = "submit" value="Create new calendar"/>
+					<input type="text" name="calendarName"/>
+					<input type="submit" value="Create new calendar"/>
 				</form>
 				<p>
 				<h3>Delete calendar</h3>
-				<form action = "@{Application.deleteCalendar()}" method = "POST">
+				<form action="@{Application.deleteCalendar()}" method="POST">
 					Calendar name:
-					<input type = "text" name = "calendarName"/>
-					<input type = "submit" value="Delete calendar"/>
+					<input type="text" name="calendarName"/>
+					<input type="submit" value="Delete calendar"/>
 				</form>
 				<p>
 			</section>

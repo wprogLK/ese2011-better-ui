@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/listEvents.css'}" />
 		<h1>Calendar ${calendarName} events</h1>
     </head>
 	<hr>
     <body>
-		#{list eventsList, as :'event'}
+		#{list eventsList, as:'event'}
 		<ul>
 			<li>
 			<strong>Event:</strong> ${event.eventName}

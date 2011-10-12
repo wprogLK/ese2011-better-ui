@@ -16,12 +16,13 @@ div#calendarList
 aside#calendar
 {
   float: left;
-  text-align: center;
 }
 
-aside#eventInfo
+object#calendarContent
 {
-  float: right;
+  width: 800px;
+  height: 500px;
+  padding-right: 50px;
 }
 
 aside#foreignusers
@@ -29,3 +30,5 @@ aside#foreignusers
   float: right;
 }
 
+section#managing
+{}

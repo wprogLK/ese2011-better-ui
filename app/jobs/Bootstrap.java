@@ -4,12 +4,7 @@ import java.text.ParseException;
 import interfaces.IUser;
 import controllers.Application;
 import models.*;
-import models.AppExceptions.AccessDeniedException;
-import models.AppExceptions.CalendarIsNotUniqueException;
-import models.AppExceptions.InvalidDateException;
-import models.AppExceptions.UnknownCalendarException;
-import models.AppExceptions.UnknownUserException;
-import models.AppExceptions.UsernameAlreadyExistException;
+import models.AppExceptions.*;
 import play.jobs.*;
 
 @OnApplicationStart
@@ -33,37 +28,30 @@ public class Bootstrap extends Job
 		}
 		catch (UsernameAlreadyExistException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (CalendarIsNotUniqueException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (AccessDeniedException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (InvalidDateException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (UnknownCalendarException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (ParseException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (UnknownUserException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

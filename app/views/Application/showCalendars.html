@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showCalendars.css'}" />
 		<h1> Calendars of user ${userName} </h1>
     </head>
 	<hr>
@@ -15,9 +14,9 @@
 			<p>
 				<ul>
 					<li>
-						#{list items:allCalendarNames, as :'calendarName'}
+						#{list items:allCalendarNames, as:'calendarName'}
 						<li>
-							<a href="@{Application.showPublicEvents(userName,calendarName,"01.01.1970")}">
+							<a href="@{Application.showPublicEvents(userName, calendarName, "01.01.1970")}">
 								${calendarName}
 							</a>
 						</li>

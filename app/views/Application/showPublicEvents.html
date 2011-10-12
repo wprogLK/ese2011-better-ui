@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/showPublicEvents.css'}" />
 		<h1>CalendarApp</h1>
     </head>
 	<hr>
@@ -14,15 +13,13 @@
 		<p>
 			<ul>
 				<li>
-					#{list items:events, as :'event'}
+					#{list items:events, as:'event'}
 					Name: ${event.getEventName()}
 					</br>
 					Start: ${event.getStartDate()}
 					</br>
 					End: ${event.getEndDate()}
-					
 					<p>
-					
 					#{/list}
 				</li>
 			</ul>
@@ -36,4 +33,3 @@
 		<a href="@{Application.index()}">Back</a>
     </body>
 </html>
-
